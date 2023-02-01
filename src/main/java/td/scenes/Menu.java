@@ -5,17 +5,13 @@ import td.helper.LoadSave;
 import td.ui.MyButton;
 
 import java.awt.*;
-import java.util.Random;
-
-import static td.game.GameStates.*;
+import static td.game.GameState.*;
 
 public class Menu extends GameScene implements SceneMethods {
-	private final Random rand;
 	private MyButton bPlaying, bSettings, bQuit, bEdit;
 
 	public Menu(Game game) {
 		super(game);
-		rand = new Random();
 		initButtons();
 	}
 
@@ -40,13 +36,13 @@ public class Menu extends GameScene implements SceneMethods {
 	@Override
 	public void mouseClicked(int x, int y) {
 		if (bPlaying.getBounds().contains(x, y)) {
-			setGameStates(PLAYING);
+			setGameState(PLAYING);
 		} else if (bSettings.getBounds().contains(x, y)) {
-			setGameStates(SETTINGS);
+			setGameState(SETTINGS);
 		} else if (bQuit.getBounds().contains(x, y)) {
 			System.exit(0);
 		} else if (bEdit.getBounds().contains(x, y)) {
-			setGameStates(EDIT);
+			setGameState(EDIT);
 		}
 	}
 

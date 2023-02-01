@@ -1,7 +1,7 @@
 package td.inputs;
 
 import td.game.Game;
-import td.game.GameStates;
+import td.game.GameState;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -18,7 +18,7 @@ public class KeyboardListener implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(GameStates.gameStates == GameStates.PLAYING){
+		if(GameState.gameState == GameState.PLAYING){
 			game.getPlaying().keyPressed(e);
 		}
 	}

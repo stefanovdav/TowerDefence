@@ -1,7 +1,6 @@
 package td.ui;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -9,16 +8,14 @@ import td.helper.Constants;
 import td.objects.Tower;
 import td.scenes.Playing;
 
-import static td.game.GameStates.*;
+import static td.game.GameState.*;
 
 public class ActionBar extends Bar {
 
-	private Playing playing;
+	private final Playing playing;
 	private MyButton bMenu, bSell, bUpgrade, bPause;
-	private Tower selectedTower;
 	private ArrayList<MyButton> bTower = new ArrayList<>();
 	private Tower displayedTower;
-	private DecimalFormat decimalFormatter;
 	private int gold = 100;
 	private boolean showCost;
 	private int towerType;
@@ -27,8 +24,7 @@ public class ActionBar extends Bar {
 	public ActionBar(int x, int y, int width, int height, Playing playing) {
 		super(x, y, width, height);
 		this.playing = playing;
-		decimalFormatter = new DecimalFormat("0.0");
-
+		new DecimalFormat("0.0");
 		initButtons();
 	}
 
@@ -178,7 +174,7 @@ public class ActionBar extends Bar {
 
 	public void mouseClicked(int x, int y) {
 		if (bMenu.getBounds().contains(x, y)) {
-			setGameStates(MENU);
+			setGameState(MENU);
 		} else if (bPause.getBounds().contains(x, y)) {
 			togglePause();
 		} else {
@@ -196,7 +192,7 @@ public class ActionBar extends Bar {
 			for (MyButton b : bTower) {
 				if (b.getBounds().contains(x, y)) {
 					if (this.gold >= Constants.Towers.getTowerCost(b.getId())) {
-						selectedTower = new Tower(0, 0, -1, b.getId());
+						Tower selectedTower = new Tower(0, 0, -1, b.getId());
 						playing.setSelectedTower(selectedTower);
 						return;
 					}
@@ -208,7 +204,7 @@ public class ActionBar extends Bar {
 	private void togglePause() {
 		playing.setGamePaused(!playing.isGamePaused());
 
-		if(playing.isGamePaused()) {
+		if (playing.isGamePaused()) {
 			bPause.setText("Unpause");
 		} else {
 			bPause.setText("Pause");
@@ -289,10 +285,6 @@ public class ActionBar extends Bar {
 		displayedTower = t;
 	}
 
-	public BufferedImage getButtImg(int id) {
-		return playing.getGame().getTileManager().getSprite(id);
-	}
-
 	public void payForTower(int towerType) {
 		this.gold -= Constants.Towers.getTowerCost(towerType);
 	}
@@ -315,7 +307,7 @@ public class ActionBar extends Bar {
 	public void removeALife() {
 		lives--;
 		if (lives < 1) {
-			setGameStates(GAME_OVER);
+			setGameState(GAME_OVER);
 		}
 	}
 

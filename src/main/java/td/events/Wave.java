@@ -1,15 +1,16 @@
 package td.events;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Wave {
-	private List<Integer> enemyList;
+	private ArrayList<Integer> enemyList;
 
-	public Wave(List<Integer> enemyList) {
+	public Wave(ArrayList<Integer> enemyList) {
 		this.enemyList = enemyList;
 	}
 
-	public List<Integer> getEnemyList() {
+	public ArrayList<Integer> getEnemyList() {
 		return enemyList;
 	}
 }

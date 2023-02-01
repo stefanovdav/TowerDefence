@@ -6,7 +6,7 @@ import td.ui.MyButton;
 
 import java.awt.*;
 
-import static td.game.GameStates.*;
+import static td.game.GameState.*;
 
 public class GameOver extends GameScene implements SceneMethods {
 
@@ -31,7 +31,7 @@ public class GameOver extends GameScene implements SceneMethods {
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.darkGray);
-		g.fillRect(0,0, 640, 800);
+		g.fillRect(0, 0, 640, 800);
 
 		g.drawImage(LoadSave.getLogo(), 28, 20, null);
 
@@ -48,7 +48,7 @@ public class GameOver extends GameScene implements SceneMethods {
 	@Override
 	public void mouseClicked(int x, int y) {
 		if (bMenu.getBounds().contains(x, y)) {
-			setGameStates(MENU);
+			setGameState(MENU);
 		} else if (bQuit.getBounds().contains(x, y)) {
 			System.exit(0);
 		}

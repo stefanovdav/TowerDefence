@@ -22,7 +22,7 @@ public class tdUtils {
 	}
 
 	public static List<Integer> matricesToIntArrList(int[][] arr) {
-		List<Integer> list = new ArrayList();
+		List<Integer> list = new ArrayList<>();
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 20; j++) {
 				list.add(arr[i][j]);
@@ -31,10 +31,10 @@ public class tdUtils {
 		return list;
 	}
 
-	public static int getHypoDistance(float x1, float x2, float y1, float y2){
+	public static int getHypoDistance(float x1, float x2, float y1, float y2) {
 		float xDiff = Math.abs(x1 - x2);
 		float yDiff = Math.abs(y1 - y2);
-		return (int)Math.hypot(xDiff, yDiff);
+		return (int) Math.hypot(xDiff, yDiff);
 	}
 
 	public static int[][] GetRoadDirArr(int[][] lvlTypeArr, PathPoint start, PathPoint end) {
@@ -52,6 +52,7 @@ public class tdUtils {
 		roadDirArr[end.getYCord()][end.getXCord()] = lastDir;
 		return roadDirArr;
 	}
+
 	private static int GetDirFromPrevToCurr(PathPoint prevTile, PathPoint currTile) {
 		// Up or down
 		if (prevTile.getXCord() == currTile.getXCord()) {
@@ -89,8 +90,7 @@ public class tdUtils {
 				if (testTile.getYCord() < lvlTypeArr.length)
 					if (testTile.getXCord() >= 0)
 						if (testTile.getXCord() < lvlTypeArr[0].length)
-							if (lvlTypeArr[testTile.getYCord()][testTile.getXCord()] == ROAD_TILE)
-								return true;
+							return lvlTypeArr[testTile.getYCord()][testTile.getXCord()] == ROAD_TILE;
 
 		return false;
 	}
@@ -99,26 +99,30 @@ public class tdUtils {
 
 		switch (testDir) {
 			case LEFT:
-				if (lastDir != RIGHT)
+				if (lastDir != RIGHT) {
 					return new PathPoint(prevTile.getXCord() - 1, prevTile.getYCord());
+				}
 			case UP:
-				if (lastDir != DOWN)
+				if (lastDir != DOWN) {
 					return new PathPoint(prevTile.getXCord(), prevTile.getYCord() - 1);
+				}
 			case RIGHT:
-				if (lastDir != LEFT)
+				if (lastDir != LEFT) {
 					return new PathPoint(prevTile.getXCord() + 1, prevTile.getYCord());
+				}
 			case DOWN:
-				if (lastDir != UP)
+				if (lastDir != UP) {
 					return new PathPoint(prevTile.getXCord(), prevTile.getYCord() + 1);
+				}
 		}
 
 		return null;
 	}
 
 	private static boolean IsCurrSameAsEnd(PathPoint currTile, PathPoint end) {
-		if (currTile.getXCord() == end.getXCord())
-			if (currTile.getYCord() == end.getYCord())
-				return true;
+		if (currTile.getXCord() == end.getXCord()) {
+			return currTile.getYCord() == end.getYCord();
+		}
 		return false;
 	}
 

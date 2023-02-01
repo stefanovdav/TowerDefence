@@ -14,8 +14,8 @@ public class Game extends JFrame implements Runnable {
 	private int updates;
 	private long lastTimeUPS;
 	private Thread gameThread;
-	private final double FPS = 120.0;
-	private static final double UPS = 50.0;
+	private final double FPS = 120.0; //TODO: fix warningsS
+	private static final double UPS = 100.0;
 	private TileManager tileManager;
 
 	//Classes
@@ -66,8 +66,8 @@ public class Game extends JFrame implements Runnable {
 		}
 	}
 
-	private void updateGame() {
-		switch (GameStates.gameStates) {
+	private void updateGame() { // TODO: update() or reset()
+		switch (GameState.gameState) {
 			case MENU -> System.out.print("");
 			case PLAYING -> playing.update();
 			case SETTINGS -> System.out.print("");
@@ -101,7 +101,7 @@ public class Game extends JFrame implements Runnable {
 				repaint();
 				frames++;
 			}
-			if (now - lastUpdate >= timePerUpdate) {
+			if (now - lastUpdate >= timePerUpdate) { //TODO: timePerUpdate ->refreshTime?
 				updateGame();
 				lastUpdate = now;
 				updates++;

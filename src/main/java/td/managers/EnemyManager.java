@@ -15,12 +15,12 @@ import static td.helper.Constants.Direction.*;
 import static td.helper.Constants.Enemies.*;
 
 public class EnemyManager {
-	private Playing playing;
-	private BufferedImage[] enemyImgs;
-	private List<Enemy> enemies = new ArrayList();
+	private final Playing playing;
+	private final BufferedImage[] enemyImgs;
+	private final List<Enemy> enemies = new ArrayList<>();
 	//	private float speed;
-	private PathPoint start, end;
-	private int healthBarWidth = 20;
+	private final PathPoint start;
+	private final PathPoint end;
 	private int[][] roadDirArr;
 
 	public EnemyManager(Playing playing, PathPoint start, PathPoint end) {
@@ -47,14 +47,13 @@ public class EnemyManager {
 
 	private void loadEnemyImages() {
 		BufferedImage atlas = LoadSave.getSpriteAtlas();
-		enemyImgs[0] = atlas.getSubimage(7 * 32, 1 * 32, 32, 32);
+		enemyImgs[0] = atlas.getSubimage(7 * 32, 32, 32, 32);
 		enemyImgs[1] = atlas.getSubimage(7 * 32, 2 * 32, 32, 32);
 		enemyImgs[2] = atlas.getSubimage(8 * 32, 2 * 32, 32, 32);
 		enemyImgs[3] = atlas.getSubimage(9 * 32, 2 * 32, 32, 32);
 	}
 
 	public void update() {
-
 		for (Enemy e : enemies) {
 			if (e.isAlive()) {
 				updateEnemyMoveNew(e);
@@ -90,18 +89,12 @@ public class EnemyManager {
 
 	private PathPoint getEnemyTile(Enemy e) {
 
-		switch (e.getLastDir()) {
-			case LEFT:
-				return new PathPoint((int) ((e.getX() + 31) / 32), (int) (e.getY() / 32));
-			case UP:
-				return new PathPoint((int) (e.getX() / 32), (int) ((e.getY() + 31) / 32));
-			case RIGHT:
-			case DOWN:
-				return new PathPoint((int) (e.getX() / 32), (int) (e.getY() / 32));
+		return switch (e.getLastDir()) {
+			case LEFT -> new PathPoint((int) ((e.getX() + 31) / 32), (int) (e.getY() / 32));
+			case UP -> new PathPoint((int) (e.getX() / 32), (int) ((e.getY() + 31) / 32));
+			default -> new PathPoint((int) (e.getX() / 32), (int) (e.getY() / 32));
+		};
 
-		}
-
-		return new PathPoint((int) (e.getX() / 32), (int) (e.getY() / 32));
 	}
 
 	public void spawnEnemy(int nextEnemy) {
@@ -109,40 +102,41 @@ public class EnemyManager {
 	}
 
 	private boolean isTilesTheSame(PathPoint currTile, PathPoint newTile) {
-		if (currTile.getXCord() == newTile.getXCord())
-			if (currTile.getYCord() == newTile.getYCord())
-				return true;
+		if (currTile.getXCord() == newTile.getXCord()) {
+			return currTile.getYCord() == newTile.getYCord();
+		}
 		return false;
 	}
 
-	private boolean isAtEnd(Enemy e) {
-		return (int) e.getX() / 32 == end.getXCord() && (int) e.getY() / 32 == end.getYCord();
+/*
+ private boolean isAtEnd(Enemy e) {
+ 	return (int) e.getX() / 32 == end.getXCord() && (int) e.getY() / 32 == end.getYCord();
 
-	}
+ }
 
-	private int getTileType(int x, int y) {
-		return playing.getTileType(x, y);
-	}
+ private int getTileType(int x, int y) {
+ 	return playing.getTileType(x, y);
+ }
+ private float getSpeedAndWidth(int dir, int enemyType) {
+ 	if (dir == LEFT) {
+ 		return -getSpeed(enemyType);
+ 	} else if (dir == RIGHT) {
+ 		return getSpeed(enemyType) + 32;
+ 	} else {
+ 		return 0;
+ 	}
+ }
 
-	private float getSpeedAndWidth(int dir, int enemyType) {
-		if (dir == LEFT) {
-			return -getSpeed(enemyType);
-		} else if (dir == RIGHT) {
-			return getSpeed(enemyType) + 32;
-		} else {
-			return 0;
-		}
-	}
-
-	private float getSpeedAndHeight(int dir, int enemyType) {
-		if (dir == UP) {
-			return -getSpeed(enemyType);
-		} else if (dir == DOWN) {
-			return getSpeed(enemyType) + 32;
-		} else {
-			return 0;
-		}
-	}
+ private float getSpeedAndHeight(int dir, int enemyType) {
+ 	if (dir == UP) {
+ 		return -getSpeed(enemyType);
+ 	} else if (dir == DOWN) {
+ 		return getSpeed(enemyType) + 32;
+ 	} else {
+ 		return 0;
+ 	}
+ }
+*/
 
 	public void draw(Graphics g) {
 		for (Enemy e : enemies) {
@@ -160,6 +154,7 @@ public class EnemyManager {
 	}
 
 	private int getNewHealthBarWidth(Enemy e) {
+		int healthBarWidth = 20;
 		return (int) (healthBarWidth * e.getHealthBarPercentage());
 	}
 

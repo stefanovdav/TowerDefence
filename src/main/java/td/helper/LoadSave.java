@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -19,7 +20,7 @@ public class LoadSave {
 	public static BufferedImage getSpriteAtlas() {
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(Main.class.getResource("images/sprites3.png"));
+			img = ImageIO.read(Objects.requireNonNull(Main.class.getResource("images/sprites3.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,7 +30,7 @@ public class LoadSave {
 	public static BufferedImage getLogo() {
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(Main.class.getResource("images/cryptoDefender.png"));
+			img = ImageIO.read(Objects.requireNonNull(Main.class.getResource("images/cryptoDefender.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -39,7 +40,7 @@ public class LoadSave {
 	public static BufferedImage getImgFromRes(String pathName) {
 		BufferedImage img = null;
 		try {
-			img = ImageIO.read(Main.class.getResource(pathName));
+			img = ImageIO.read(Objects.requireNonNull(Main.class.getResource(pathName)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -53,15 +54,14 @@ public class LoadSave {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public static List<PathPoint> getLevelPathPoints(String name) {
-		File lvlFile = new File("src/main/resources/td/" + name +".txt");
+		File lvlFile = new File("src/main/resources/td/" + name + ".txt");
 
 		if (lvlFile.exists()) {
 			List<Integer> list = readFromFile(lvlFile);
-			List<PathPoint> points = new ArrayList();
+			List<PathPoint> points = new ArrayList<>();
 			points.add(new PathPoint(list.get(400), list.get(401)));
 			points.add(new PathPoint(list.get(402), list.get(403)));
 			return points;
@@ -149,18 +149,18 @@ public class LoadSave {
 	}
 
 	public static List<BufferedImage> getProjectiles() {
-		List<BufferedImage> imgs = new ArrayList();
+		List<BufferedImage> imgs = new ArrayList<>();
 		try {
-			BufferedImage tweet = ImageIO.read(Main.class.getResource("images/twitterLogo.png"));
+			BufferedImage tweet = ImageIO.read(Objects.requireNonNull(Main.class.getResource("images/twitterLogo.png")));
 			imgs.add(tweet);
 
-			BufferedImage dollar = ImageIO.read(Main.class.getResource("images/BuffetDollar.png"));
+			BufferedImage dollar = ImageIO.read(Objects.requireNonNull(Main.class.getResource("images/BuffetDollar.png")));
 			imgs.add(dollar);
 
-			BufferedImage ftx = ImageIO.read(Main.class.getResource("images/ftxLogo.png"));
+			BufferedImage ftx = ImageIO.read(Objects.requireNonNull(Main.class.getResource("images/ftxLogo.png")));
 			imgs.add(ftx);
 
-			BufferedImage sz = ImageIO.read(Main.class.getResource("images/ftxLogo.png"));
+			BufferedImage sz = ImageIO.read(Objects.requireNonNull(Main.class.getResource("images/ftxLogo.png")));
 			imgs.add(ftx);
 		} catch (IOException e) {
 			e.printStackTrace();

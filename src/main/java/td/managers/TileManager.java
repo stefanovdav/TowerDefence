@@ -39,11 +39,6 @@ public class TileManager {
 		tiles.addAll(roadC);
 	}
 
-	private BufferedImage[] getImages(int firstX, int firstY, int secondX, int secondY) {
-
-		return new BufferedImage[]{getSprite(firstX, firstY), getSprite(secondX, secondY)};
-	}
-
 	private void loadAtlas() {
 		atlas = LoadSave.getSpriteAtlas();
 	}
@@ -60,16 +55,9 @@ public class TileManager {
 		return atlas.getSubimage(xCord * 32, yCord * 32, 32, 32);
 	}
 
-	public ArrayList<Tile> getRoadS() {
-		return roadS;
-	}
-
-	public ArrayList<Tile> getRoadC() {
-		return roadC;
-	}
-
 	public int[][] getTypeArr() {
 		int[][] idArr = LoadSave.getLevelData("new_level");
+		assert idArr != null;
 		int[][] typeArr = new int[idArr.length][idArr[0].length];
 
 		for (int j = 0; j < idArr.length; j++) {

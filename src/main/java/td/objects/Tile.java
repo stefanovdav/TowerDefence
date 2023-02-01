@@ -3,8 +3,9 @@ package td.objects;
 import java.awt.image.BufferedImage;
 
 public class Tile {
-	private BufferedImage sprite;
-	private int id, tileType;
+	private final BufferedImage sprite;
+	private final int id;
+	private final int tileType;
 
 
 	public Tile(BufferedImage sprite, int id, int tileId) {

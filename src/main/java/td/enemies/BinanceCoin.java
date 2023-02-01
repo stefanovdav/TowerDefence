@@ -4,8 +4,8 @@ import td.managers.EnemyManager;
 
 import static td.helper.Constants.Enemies.BINANCECOIN;
 
-public class BinanceCoin extends Enemy{
+public class BinanceCoin extends Enemy {
 	public BinanceCoin(float x, float y, int id, EnemyManager enemyManager) {
-		super(x, y, id, BINANCECOIN, enemyManager);
+		super(id, x, y, BINANCECOIN, enemyManager);
 	}
 }

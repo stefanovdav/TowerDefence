@@ -22,14 +22,14 @@ import static td.helper.Constants.Tiles.GRASS_TILE;
 public class Playing extends GameScene implements SceneMethods {
 
 	private int[][] lvl;
-	private ActionBar actionBar;
+	private final ActionBar actionBar;
 	private int mouseX, mouseY;
-	private EnemyManager enemyManager;
+	private final EnemyManager enemyManager;
 	private PathPoint start, end;
-	private TowerManager towerManager;
+	private final TowerManager towerManager;
 	private Tower selectedTower;
-	private ProjectileManager projectileManager;
-	private WaveManager waveManager;
+	private final ProjectileManager projectileManager;
+	private final WaveManager waveManager;
 	private boolean gamePaused = false;
 
 	public Playing(Game game) {
@@ -39,7 +39,7 @@ public class Playing extends GameScene implements SceneMethods {
 		enemyManager = new EnemyManager(this, start, end);
 		towerManager = new TowerManager(this);
 		projectileManager = new ProjectileManager(this);
-		waveManager = new WaveManager(this);
+		waveManager = new WaveManager();
 
 	}
 
@@ -52,11 +52,12 @@ public class Playing extends GameScene implements SceneMethods {
 	private void loadDefaultLevel() {
 		lvl = LoadSave.getLevelData("new_level");
 		List<PathPoint> points = LoadSave.getLevelPathPoints("new_level");
+		assert points != null;
 		start = points.get(0);
 		end = points.get(1);
 	}
 
-	public void setGamePaused (boolean gamePaused) {
+	public void setGamePaused(boolean gamePaused) {
 		this.gamePaused = gamePaused;
 	}
 
@@ -96,9 +97,6 @@ public class Playing extends GameScene implements SceneMethods {
 
 	public void update() {
 		if (!gamePaused) {
-			enemyManager.update();
-			towerManager.update();
-			projectileManager.update();
 			waveManager.update();
 			if (isAllEnemiesDead()) {
 				if (waveManager.isThereMoreWaves()) {
@@ -114,6 +112,9 @@ public class Playing extends GameScene implements SceneMethods {
 				spawnEnemy();
 			}
 		}
+		enemyManager.update();
+		towerManager.update();
+		projectileManager.update();
 	}
 
 
@@ -136,10 +137,6 @@ public class Playing extends GameScene implements SceneMethods {
 		return !waveManager.isWaveEmpty() && waveManager.isTimeForNewEnemy();
 	}
 
-	public void addEnemy(int x, int y) {
-
-	}
-
 	public void setSelectedTower(Tower selectedTower) {
 		this.selectedTower = selectedTower;
 	}
@@ -154,7 +151,7 @@ public class Playing extends GameScene implements SceneMethods {
 
 		if (y >= 640) {
 			actionBar.mouseClicked(x, y);
-		} else if (!isGamePaused()){
+		} else if (!isGamePaused()) {
 			if (selectedTower != null) {
 				if (isTileGrass(mouseX, mouseY)) {
 					if (getTowerAt(mouseX, mouseY) == null) {
@@ -186,12 +183,12 @@ public class Playing extends GameScene implements SceneMethods {
 
 	@Override
 	public void mouseMoved(int x, int y) {
-			if (y >= 640) {
-				actionBar.mouseMoved(x, y);
-			} else if (!gamePaused) {
-				mouseX = (x / 32) * 32;
-				mouseY = (y / 32) * 32;
-			}
+		if (y >= 640) {
+			actionBar.mouseMoved(x, y);
+		} else if (!gamePaused) {
+			mouseX = (x / 32) * 32;
+			mouseY = (y / 32) * 32;
+		}
 
 	}
 

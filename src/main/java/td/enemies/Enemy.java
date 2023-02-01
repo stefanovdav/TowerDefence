@@ -8,19 +8,19 @@ import java.awt.*;
 import static td.helper.Constants.Direction.*;
 
 public abstract class Enemy {
+	protected int id;
 	protected float x, y;
 	protected int health, maxHealth;
 	protected Rectangle bounds;
-	protected int id;
 	protected int enemyType;
 	protected int lastDir;
 	protected boolean alive;
 	protected EnemyManager enemyManager;
 
-	public Enemy(float x, float y, int id, int enemyType, EnemyManager enemyManager) {
+	public Enemy(int id, float x, float y, int enemyType, EnemyManager enemyManager) {
+		this.id = id;
 		this.x = x;
 		this.y = y;
-		this.id = id;
 		this.enemyType = enemyType;
 		this.enemyManager = enemyManager;
 		bounds = new Rectangle((int) x, (int) y, 32, 32);
@@ -113,5 +113,6 @@ public abstract class Enemy {
 
 	public void kill() {
 		alive = false;
+		health = 0;
 	}
 }

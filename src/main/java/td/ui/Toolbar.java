@@ -1,7 +1,7 @@
 package td.ui;
 
-import static td.game.GameStates.MENU;
-import static td.game.GameStates.setGameStates;
+import static td.game.GameState.MENU;
+import static td.game.GameState.setGameState;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -14,12 +14,12 @@ import td.objects.Tile;
 import td.scenes.Editing;
 
 public class Toolbar extends Bar {
-	private Editing editing;
+	private final Editing editing;
 	private MyButton bMenu, bSave;
 	private MyButton bStart, bEnd;
 	private BufferedImage bStartImg, bEndImg;
 	private Tile selectedTile;
-	private ArrayList<MyButton> tileButtons = new ArrayList<>();
+	private final ArrayList<MyButton> tileButtons = new ArrayList<>();
 
 	public Toolbar(int x, int y, int width, int height, Editing editing) {
 		super(x, y, width, height);
@@ -120,7 +120,7 @@ public class Toolbar extends Bar {
 
 	public void mouseClicked(int x, int y) {
 		if (bMenu.getBounds().contains(x, y)) {
-			setGameStates(MENU);
+			setGameState(MENU);
 		} else if (bSave.getBounds().contains(x, y)) {
 			saveLevel();
 		} else if (bStart.getBounds().contains(x, y)) {
@@ -185,7 +185,6 @@ public class Toolbar extends Bar {
 				}
 			}
 		}
-
 	}
 
 	public void mouseReleased(int x, int y) {

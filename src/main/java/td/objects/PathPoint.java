@@ -1,7 +1,8 @@
 package td.objects;
 
 public class PathPoint {
-	private int xCord, yCord;
+	private final int xCord;
+	private final int yCord;
 
 	public PathPoint(int xCord, int yCord) {
 		this.xCord = xCord;
@@ -14,13 +15,5 @@ public class PathPoint {
 
 	public int getYCord() {
 		return yCord;
-	}
-
-	public void setxCord(int xCord) {
-		this.xCord = xCord;
-	}
-
-	public void setyCord(int yCord) {
-		this.yCord = yCord;
 	}
 }

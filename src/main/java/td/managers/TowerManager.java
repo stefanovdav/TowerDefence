@@ -12,9 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TowerManager {
-	private Playing playing;
+	private final Playing playing;
 	private BufferedImage[] towerImgs;
-	private List<Tower> towers = new ArrayList();
+	private final List<Tower> towers = new ArrayList<>();
 	private int towerAmount = 0;
 
 

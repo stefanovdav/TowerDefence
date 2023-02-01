@@ -14,10 +14,8 @@ public class Bar {
 
 	protected void drawButtonFeedback(Graphics g, MyButton b) {
 		// MouseOver
-		if (b.isMouseOver())
-			g.setColor(new Color(0,255,150));
-		else
-			g.setColor(Color.GREEN);
+		if (b.isMouseOver()) g.setColor(new Color(0, 255, 150));
+		else g.setColor(Color.GREEN);
 
 		// Border
 		g.drawRect(b.x, b.y, b.width, b.height);

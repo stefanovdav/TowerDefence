@@ -15,8 +15,8 @@ import static td.helper.Constants.Projectiles.*;
 import static td.helper.Constants.Towers.*;
 
 public class ProjectileManager {
-	private Playing playing;
-	private List<Projectile> projectiles = new ArrayList();
+	private final Playing playing;
+	private final List<Projectile> projectiles = new ArrayList<>();
 	private List<BufferedImage> atkImgs;
 
 	public ProjectileManager(Playing playing) {
@@ -36,10 +36,8 @@ public class ProjectileManager {
 		float xSpeed = xPer * td.helper.Constants.Projectiles.getSpeed(type);
 		float ySpeed = td.helper.Constants.Projectiles.getSpeed(type) - xSpeed;
 
-		if (t.getX() > e.getX())
-			xSpeed *= -1;
-		if (t.getY() > e.getY())
-			ySpeed *= -1;
+		if (t.getX() > e.getX()) xSpeed *= -1;
+		if (t.getY() > e.getY()) ySpeed *= -1;
 		int proj_id = 0;
 
 		projectiles.add(new Projectile(t.getX() + 16, t.getY() + 16, xSpeed, ySpeed, t.getDmg(), proj_id++, type));
@@ -74,12 +72,9 @@ public class ProjectileManager {
 	}
 
 	public void draw(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g;
-
 		for (Projectile p : projectiles)
 			if (p.isActive()) {
 				g.drawImage(atkImgs.get(p.getProjectileType()), (int) p.getPos().x, (int) p.getPos().y, null);
-
 			}
 	}
 
@@ -98,6 +93,7 @@ public class ProjectileManager {
 			case SAM -> {
 				return FTX;
 			}
+			//TODO:Think of what sz would shoot
 			case SZ -> {
 				return FTX;
 			}

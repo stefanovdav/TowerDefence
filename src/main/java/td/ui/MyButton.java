@@ -8,7 +8,7 @@ public class MyButton {
 	private Rectangle bounds;
 	private boolean mouseOver;
 	private boolean mousePressed;
-	private int id;
+	private final int id;
 
 	public MyButton(String text, int x, int y, int width, int height) {
 		this.x = x;
@@ -72,8 +72,7 @@ public class MyButton {
 	private void drawText(Graphics g) {
 		int textWidth = g.getFontMetrics().stringWidth(text);
 		int textHeight = g.getFontMetrics().getHeight();
-		g.drawString(text, x - textWidth / 2 + width / 2,
-				y + textHeight / 2 + height / 2);
+		g.drawString(text, x - textWidth / 2 + width / 2, y + textHeight / 2 + height / 2);
 	}
 
 	public Rectangle getBounds() {
@@ -83,7 +82,8 @@ public class MyButton {
 	private void initBounds() {
 		this.bounds = new Rectangle(x, y, width, height);
 	}
-	public void resetBooleans(){
+
+	public void resetBooleans() {
 		this.mousePressed = false;
 		this.mouseOver = false;
 	}
@@ -98,10 +98,6 @@ public class MyButton {
 
 	public boolean isMousePressed() {
 		return mousePressed;
-	}
-
-	public String getText() {
-		return text;
 	}
 
 	public void setText(String text) {

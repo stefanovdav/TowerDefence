@@ -9,26 +9,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WaveManager {
-	private Playing playing;
-	private List<Wave> waves = new ArrayList();
-	private int getEnemySpawnTickLimit = 60 * 1;
+	private final List<Wave> waves = new ArrayList<>();
+	private final int getEnemySpawnTickLimit = 60;
 	private int enemySpawnTick = getEnemySpawnTickLimit;
 	private int enemyIndex, waveIndex;
 	private boolean waveStartTimer;
-	private int waveTickLimit = (int) Game.getUPS() * 15;
+	private final int waveTickLimit = (int) Game.getUPS() * 15;
 	private int waveTick = 0;
 	private boolean waveTickTimerOver;
 
 
-	public WaveManager(Playing playing) {
-		this.playing = playing;
+	public WaveManager() {
 		createWaves();
 	}
 
 	public void update() {
-		if (enemySpawnTick < getEnemySpawnTickLimit) {
+		if (enemySpawnTick < getEnemySpawnTickLimit)
 			enemySpawnTick++;
-		}
 
 		if (waveStartTimer) {
 			waveTick++;
@@ -36,6 +33,7 @@ public class WaveManager {
 				waveTickTimerOver = true;
 			}
 		}
+
 	}
 
 	public void startWaveTimer() {
@@ -44,6 +42,7 @@ public class WaveManager {
 
 	public void increaseWaveIndex() {
 		waveIndex++;
+		waveTick = 0;
 		waveTickTimerOver = false;
 		waveStartTimer = false;
 	}
@@ -68,6 +67,12 @@ public class WaveManager {
 		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(2, 2, 0, 0, 0, 0, 0, 1))));
 		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(3, 3, 3, 3, 0, 0, 0, 1))));
 		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(2, 2, 1, 3, 2, 3, 2, 1))));
+		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(2, 2, 1, 3, 2, 3, 2, 1))));
+		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(2, 2, 1, 3, 2, 3, 2, 1))));
+		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(2, 2, 1, 3, 2, 3, 2, 1))));
+		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(2, 2, 1, 3, 2, 3, 2, 1))));
+		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(2, 2, 1, 3, 2, 3, 2, 1))));
+		waves.add(new Wave(new ArrayList<Integer>(Arrays.asList(2, 2, 1, 3, 2, 3, 2, 1))));
 	}
 
 	public List<Wave> getWaves() {
@@ -75,7 +80,7 @@ public class WaveManager {
 	}
 
 	public boolean isWaveEmpty() {
-		if (waveIndex == waves.size()) {
+		if (waveIndex >= waves.size()) {
 			return false;
 		} else {
 			return waves.get(waveIndex).getEnemyList().size() <= enemyIndex;
@@ -92,13 +97,5 @@ public class WaveManager {
 
 	public int getWaveIndex() {
 		return waveIndex;
-	}
-
-	public float getWaveTimeLeft() {
-		return (float) (waveTickLimit - waveTick) / 60.0f;
-	}
-
-	public boolean isWaveTimerStarted() {
-		return waveStartTimer;
 	}
 }

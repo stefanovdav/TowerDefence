@@ -7,7 +7,13 @@ import java.awt.image.BufferedImage;
 import static td.helper.Constants.Towers.*;
 
 public class Tower {
-	private int x, y, id, towerType, cdTick, dmg, tier;
+	private final int x;
+	private final int y;
+	private final int id;
+	private final int towerType;
+	private int cdTick;
+	private int dmg;
+	private int tier;
 	private float range, cooldown;
 
 	public Tower(int x, int y, int id, int towerType) {
@@ -31,16 +37,16 @@ public class Tower {
 				cooldown -= 1;
 			}
 			case WARREN -> {
-				dmg += 2;
-				range += 20;
+				dmg += 3;
+				range += 10;
 				cooldown -= 1;
 			}
 			case SAM -> {
-				dmg += 2;
+				dmg += 1;
 				range += 20;
 				cooldown -= 1;}
 			case SZ -> {
-				dmg += 2;
+				dmg += 1.3;
 				range += 20;
 				cooldown -= 1;
 			}
@@ -94,10 +100,6 @@ public class Tower {
 
 	public float getRange() {
 		return range;
-	}
-
-	public float getCooldown() {
-		return cooldown;
 	}
 
 	public int getTier() {

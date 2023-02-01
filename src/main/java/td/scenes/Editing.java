@@ -19,7 +19,7 @@ public class Editing extends GameScene implements SceneMethods {
 	private int mouseX, mouseY;
 	private int lastTileX, lastTileY, lastTileId;
 	private boolean drawSelect;
-	private Toolbar toolbar;
+	private final Toolbar toolbar;
 	private PathPoint start, end;
 
 	public Editing(Game game) {
